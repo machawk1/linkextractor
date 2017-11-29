@@ -1,11 +1,11 @@
 FROM       python
 LABEL      maintainer="Sawood Alam <@ibnesayeed>"
 
-RUN        pip install beautifulsoup4
-RUN        pip install requests
-
 WORKDIR    /app
-COPY       linkextractor.py /app/
-RUN        chmod a+x linkextractor.py
+COPY       requirements.txt /app/
+RUN        pip install -r requirements.txt
 
-ENTRYPOINT ["./linkextractor.py"]
+COPY       *.py /app/
+RUN        chmod a+x *.py
+
+CMD        ["./main.py"]
