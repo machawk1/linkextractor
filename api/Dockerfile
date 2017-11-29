@@ -1,11 +1,13 @@
-FROM       python
+FROM       ruby
 LABEL      maintainer="Sawood Alam <@ibnesayeed>"
 
+ENV        LANG C.UTF-8
+
 WORKDIR    /app
-COPY       requirements.txt /app/
-RUN        pip install -r requirements.txt
+COPY       Gemfile /app/
+RUN        bundle install
 
-COPY       *.py /app/
-RUN        chmod a+x *.py
+COPY       linkextractor.rb /app/
+RUN        chmod a+x linkextractor.rb
 
-CMD        ["./main.py"]
+CMD        ["./linkextractor.rb", "-o", "0.0.0.0"]
